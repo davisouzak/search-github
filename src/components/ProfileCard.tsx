@@ -6,14 +6,14 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ userData }: ProfileCardProps) => {
 	return (
-		<div className='flex items-start space-x-4 mb-6'>
+		<div className='flex items-start space-x-4 mb-6 '>
 			<img
 				src={userData.avatar_url}
 				alt={`${userData.login}'s avatar`}
-				className='w-24 h-24 rounded-full border-2 border-gray-200'
+				className='w-24 h-24 rounded-full border-2  border-blue-600'
 			/>
 			<div>
-				<h3 className='text-2xl font-bold text-gray-800'>
+				<h3 className='text-2xl font-bold text-blue-600'>
 					{userData.name || userData.login}
 				</h3>
 				<p className='text-gray-600 mb-2'>

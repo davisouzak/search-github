@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import ProfileCard from './components/ProfileCard'
 import SearchBar from './components/SearchBar'
 import { GitHubUser } from './types/github'
+import githubLogo from '/assets/logoGithub/image1.png'
 
-function App() {
+export default function App() {
 	const [username, setUsername] = useState<string>('')
 	const [userData, setUserData] = useState<GitHubUser | null>(null)
 	const [loading, setLoading] = useState<boolean>(false)
@@ -21,7 +22,9 @@ function App() {
 		try {
 			const response = await fetch(`https://api.github.com/users/${username}`)
 			if (!response.ok) {
-				throw new Error('Usuário não encontrado')
+				throw new Error(
+					'Nenhum perfil foi encontrado com ese nome de usuário. Tente novamente'
+				)
 			}
 			const data: GitHubUser = await response.json()
 			setUserData(data)
@@ -38,19 +41,30 @@ function App() {
 	}
 
 	return (
-		<div className='min-h-screen bg-gray-100 p-6 flex items-center'>
-			<div className='max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 '>
-				<h1 className='text-3xl font-bold text-gray-800'>Perfil</h1>
+		<div className='min-h-screen bg-neutral-800 p-6 flex items-center'>
+			<div className='w-full h-full max-w-2xl mx-auto bg-black rounded-lg shadow-md p-10 '>
+				<div className='flex p-5 justify-center'>
+					<img
+						src={githubLogo}
+						alt='GitHub Logo'
+						className='h-8 w-8'
+					/>
+					<h1 className='text-3xl text-white px-1'>Perfil</h1>
+					<h1 className='text-3xl font-bold text-white px-1'>GitHub</h1>
+				</div>
 				<SearchBar
 					onSearch={handleSearch}
 					initialValue={username}
 				/>
 
-				{loading && <p className='text-center py-4'>Carregando...</p>}
-				{error && <p className='text-red-500 text-center py-4'>{error}</p>}
-
+				{loading && <p className='text-center py-4 text-white'>Carregando...</p>}
+				{error && (
+					<p className='text-red-500 text-center py-4 bg-neutral-300 rounded-xl p-5'>
+						{error}
+					</p>
+				)}
 				{userData && (
-					<>
+					<div className='justify-center bg-neutral-300 rounded-xl p-5'>
 						<ProfileCard userData={userData} />
 
 						<div className='border-t border-gray-200 my-6'></div>
@@ -86,11 +100,9 @@ function App() {
 								</div>
 							</div>
 						</div>
-					</>
+					</div>
 				)}
 			</div>
 		</div>
 	)
 }
-
-export default App
