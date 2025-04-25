@@ -31,12 +31,12 @@ const SearchBar = ({ onSearch, initialValue }: SearchBarProps) => {
 				/>
 					<button
 						type='submit'
-						className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none outline-none rounded-lg transition duration-200'
+						className='cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 border-none outline-none rounded-lg transition duration-200'
 					>
 						<img
 							src={iconSearch}
 							alt='Search Icon'
-							className='rounded-lg cursor-pointer'
+							className='rounded-lg'
 						/>
 					</button>
 			</div>
